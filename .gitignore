@@ -1,0 +1,7 @@
+/env
+/fotoblog/db.sqlite3
+/fotoblog/fotoblog/__pycache__
+/fotoblog/authentication/__pycache__
+/fotoblog/authentication/migrations/__pycache__
+/fotoblog/blog/__pycache__
+/fotoblog/blog/migrations/__pycache__

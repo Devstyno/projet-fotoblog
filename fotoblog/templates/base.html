@@ -4,23 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <title>Fotoblog</title>
+    <title>FotoBlog</title>
 </head>
 <body>
     <header>
-        <!-- <nav>
-            <a href="{% url 'login' %}">Fotoblog</a>
-        </nav> -->
+        <nav>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
     </header>
     <main>
-        <h1>Fotoblog</h1>
+        <h1>FotoBlog</h1>
         {% block content %}
         {% endblock %}
+        {% if user.is_authenticated %}
+            <p>
+                Vous êtes connecté en tant que {{ request.user }}. <a href="{% url 'logout' %}">Se déconnecter</a>
+            </p>
+        {% endif %}
     </main>
     <footer>
-
+        <div class="copyright">
+            <p>
+                &copy; 2024 <br/>
+                Created by <a href="https://www.linkedin.com/in/yao-david-soussoukpo-0a52a222a/" target="_blank" rel="noopener">Yao David SOUSSOUKPO</a>
+            </p>
+        </div>
     </footer>
 </body>
 </html>

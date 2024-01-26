@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from authentication import views as av # av for authenticationviews
+from blog import views as bv # bv for blogviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', av.login_page, name="login")
+    path('', av.login_page, name="login"),
+    path('logout/', av.logout_user, name="logout"),
+    path('accueil/', bv.accueil, name="accueil")
 ]

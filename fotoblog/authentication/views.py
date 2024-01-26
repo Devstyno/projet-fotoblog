@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 from authentication.forms import LoginForm
 
 # Create your views here.
@@ -17,9 +17,14 @@ def login_page(request):
             if user is not None:
                 login(request, user)
                 message = f'Bonjour, {user.username}! Vous êtes connecté.'
+                redirect("accueil")
             else:
                 message = "Identifiants invalides."
     
     context = {"form" : form, "message" : message}
     
     return render(request, 'authentication/login.html', context)
+
+def logout_user(request):
+    logout(request)
+    return redirect("login")

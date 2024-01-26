@@ -87,6 +87,9 @@ DATABASES = {
 # User settings
 AUTH_USER_MODEL = 'authentication.User'
 
+# Redirect not authenticated User to
+LOGIN_URL = "login"
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

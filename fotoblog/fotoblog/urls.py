@@ -22,6 +22,8 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView,
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/', av.registering_page, name="register"),
+    # path('register/', av.RegisteringPageView.as_view(), name="register"),
     # path('', av.LoginPageView.as_view(), name="login"),
     path('logout/', av.logout_user, name="logout"),
     path(
@@ -53,5 +55,6 @@ urlpatterns = [
         ),
         name="password_change_done"
     ),
-    path('accueil/', bv.accueil, name="accueil")
+    path('accueil/', bv.accueil, name="accueil"),
+    path('contact-us/', bv.contact_us, name="contact_us")
 ]

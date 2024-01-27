@@ -1,9 +1,45 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from authentication.forms import LoginForm
+from authentication.forms import LoginForm, RegisteringForm
 from django.views.generic import View
+from authentication.models import User
 
 # Create your views here.
+class RegisteringPageView(View):
+    form_class = RegisteringForm
+    template_name = "authentication/inscription.html"
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {"form" : form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            User.objects.create_user(
+                username = form.cleaned_data["username"],
+                password = form.cleaned_data["password"],
+                role = form.cleaned_data["role"]
+            )
+            return redirect("login")
+        return render(request, self.template_name, {"form" : form})
+
+def registering_page(request):
+    form = RegisteringForm()
+
+    if request.method == "POST":
+        form = RegisteringForm(request.POST)
+        if form.is_valid():
+            User.objects.create_user(
+                username = form.cleaned_data["username"],
+                password = form.cleaned_data["password"],
+                role = form.cleaned_data["role"]
+            )
+            return redirect("login")
+
+    context = {"form", form}
+
+    return render(request, "authentication/inscription.html", context)
 
 class LoginPageView(View):
     form_class = LoginForm

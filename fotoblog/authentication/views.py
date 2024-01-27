@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from authentication.forms import LoginForm, RegisteringForm
 from django.views.generic import View
+from django.conf import settings
 from authentication.models import User
 
 # Create your views here.
@@ -16,29 +17,31 @@ class RegisteringPageView(View):
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
-            User.objects.create_user(
-                username = form.cleaned_data["username"],
-                password = form.cleaned_data["password"],
-                role = form.cleaned_data["role"]
-            )
-            return redirect("login")
+            # User.objects.create_user(
+            #     username = form.cleaned_data["username"],
+            #     password = form.cleaned_data["password"],
+            #     role = form.cleaned_data["role"]
+            # )
+            user = form.save()
+            # auto login user
+            login(request, user)
+            return redirect(settings.LOGIN_REDIRECT_URL)
         return render(request, self.template_name, {"form" : form})
 
 def registering_page(request):
     form = RegisteringForm()
-
     if request.method == "POST":
         form = RegisteringForm(request.POST)
         if form.is_valid():
-            User.objects.create_user(
-                username = form.cleaned_data["username"],
-                password = form.cleaned_data["password"],
-                role = form.cleaned_data["role"]
-            )
-            return redirect("login")
-
-    context = {"form", form}
-
+            # User.objects.create_user(
+            #     username = form.cleaned_data["username"],
+            #     password = form.cleaned_data["password"],
+            #     role = form.cleaned_data["role"]
+            # )
+            user = form.save()
+            login(request, user)
+            return redirect(settings.LOGIN_REDIRECT_URL)
+    context = {"form" : form}
     return render(request, "authentication/inscription.html", context)
 
 class LoginPageView(View):

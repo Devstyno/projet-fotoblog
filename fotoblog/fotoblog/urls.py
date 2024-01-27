@@ -18,10 +18,40 @@ from django.contrib import admin
 from django.urls import path
 from authentication import views as av # av for authenticationviews
 from blog import views as bv # bv for blogviews
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', av.login_page, name="login"),
+    # path('', av.LoginPageView.as_view(), name="login"),
     path('logout/', av.logout_user, name="logout"),
+    path(
+        '',
+        LoginView.as_view(
+            template_name = "authentication/login.html",
+            redirect_authenticated_user = True
+        ),
+        name="login"
+    ),
+    # path(
+    #     'logout/',
+    #     LogoutView.as_view(
+    #         template_name = "authentication/logout.html"
+    #     ),
+    #     name="logout"
+    # ),
+    path(
+        'password/change/',
+        PasswordChangeView.as_view(
+            template_name = "authentication/password_update.html"
+        ),
+        name="password_change"
+    ),
+    path(
+        'password/change/done/',
+        PasswordChangeDoneView.as_view(
+            template_name = "authentication/password_change_done.html"
+        ),
+        name="password_change_done"
+    ),
     path('accueil/', bv.accueil, name="accueil")
 ]

@@ -118,6 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'authentication.validators.ContainsLetterValidator',
     },
+    {
+        'NAME': 'authentication.validators.ContainsDigitValidator'
+    }
 ]
 
 

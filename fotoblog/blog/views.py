@@ -27,3 +27,6 @@ def photo_upload(request):
 
 def contact_us(request):
     return render(request, 'blog/contact_us.html')
+
+def about_us(request):
+    return render(request, 'blog/a_propos.html')

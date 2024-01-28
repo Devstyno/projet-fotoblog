@@ -52,8 +52,9 @@ urlpatterns = [
         name="password_change_done"
     ),
     path('accueil/', bv.accueil, name="accueil"),
+    path("photo/upload/", bv.photo_upload, name="photo_upload"),
+    path('contact-us/', bv.about_us, name="about_us"),
     path('contact-us/', bv.contact_us, name="contact_us"),
-    path("photo/upload/", bv.photo_upload, name="photo_upload")
 ]
 
 if settings.DEBUG:

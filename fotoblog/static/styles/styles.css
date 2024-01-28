@@ -56,3 +56,9 @@ html {
     width: 80%;
     border-radius: 5px;
 }
+
+/* Footer content */
+footer {
+    margin-left: 240px; /* Same as the width of the sidebar */
+    padding: 20px;
+}

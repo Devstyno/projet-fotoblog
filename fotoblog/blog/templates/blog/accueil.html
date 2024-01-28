@@ -1,17 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
     <div>
-        <h2>Bienvenu(e) {{ user.username }} !</h2>
-        <h3>Contexte</h3>
-        <p>
-            Un collectif de photographes cherche un moyen de montrer et de partager son travail à un large public.<br>
-            Ils veulent pouvoir mettre leurs photos en ligne et créer des posts à leur sujet sur un blog.<br>
-            Ils ont fait appel à moi en tant que développeur Django, et m'ont demandé de créer une application web qui leur permette justement de faire cela.<br>
-            Ils ont besoin d'avoir deux types d'utilisateurs, les abonnés et les créateurs. Seuls les créateurs doivent pouvoir créer du contenu.<br>
-            Ce contenu doit ensuite être partagé dans un flux social, et les abonnés doivent pouvoir choisir quels créateurs ils veulent suivre.
-        </p>
-    </div>
-    <div>
         <h2>Photos</h2>
         {% for photo in photos %}
             <img style="height: 250px; width: 250px;" src="{{ photo.image.url }}">

@@ -25,7 +25,7 @@ urlpatterns = [
     path('register/', av.registering_page, name="register"),
     # path('register/', av.RegisteringPageView.as_view(), name="register"),
     # path('', av.LoginPageView.as_view(), name="login"),
-    # path('logout/', av.logout_user, name="logout"),
+    path('logout/', av.logout_user, name="logout"),
     path(
         '',
         LoginView.as_view(
@@ -34,7 +34,7 @@ urlpatterns = [
         ),
         name="login"
     ),
-    path('logout/', LogoutView.as_view(), name="logout"),
+    # path('logout/', LogoutView.as_view(), name="logout"),
     path(
         'password/change/',
         PasswordChangeView.as_view(

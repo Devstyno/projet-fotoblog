@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Télécharger une photo</h2>
+    <!-- Notez l’ajout de l’attribut  enctype="multipart/form-data"   à la balise  <form>  . C’est obligatoire pour que le formulaire puisse gérer l’envoi de fichiers. -->
+    <form method="post" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit" >Publier</button>
+    </form>
+{% endblock content %}

@@ -51,9 +51,10 @@ urlpatterns = [
         ),
         name="password_change_done"
     ),
+    path("profile_photo/change/", av.change_profile_photo, name="pp_update"),
     path('accueil/', bv.accueil, name="accueil"),
     path("photo/upload/", bv.photo_upload, name="photo_upload"),
-    path('contact-us/', bv.about_us, name="about_us"),
+    path('about-us/', bv.about_us, name="about_us"),
     path('contact-us/', bv.contact_us, name="contact_us"),
 ]
 

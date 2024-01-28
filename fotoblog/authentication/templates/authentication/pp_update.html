@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Change my password</h2>
-    <form method="post">
+    <h2>Change my profile photo</h2>
+    <form method="post" enctype="multipart/form-data">
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit" >Changer</button>

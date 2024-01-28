@@ -1,5 +1,5 @@
 from blog.models import Photo
-from django.forms import Form, ModelForm
+from django.forms import ModelForm
 
 class PhotoForm(ModelForm):
     class Meta:

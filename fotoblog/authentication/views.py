@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from authentication.forms import LoginForm, RegisteringForm
+from authentication.forms import LoginForm, RegisteringForm, UploadProfilePhotoForm
 from django.views.generic import View
 from django.conf import settings
 
@@ -78,3 +78,13 @@ def login_page(request):
 def logout_user(request):
     logout(request)
     return redirect("login")
+
+def change_profile_photo(request):
+    form = UploadProfilePhotoForm(instance=request.user)
+    if request.method == "POST":
+        form = UploadProfilePhotoForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("accueil")
+    context = {"form" : form}
+    return render(request, "authentication/pp_update.html", context)

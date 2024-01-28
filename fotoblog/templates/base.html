@@ -12,24 +12,28 @@
 <body>
     <header>
         <nav>
-            {% if not user.is_authenticated %}
-                <a href="{% url 'register' %}">Register</a>
-                <a href="{% url 'login' %}">Login</a>
-            {% endif %}
+            
         </nav>
     </header>
     <aside class="sidebar">
         <h1>FotoBlog</h1>
         {% if user.is_authenticated %}
             <p>Salut, {{ user }} !</p>
-            <img class="avatar" src="{% static 'assets/default_profile.png'%}">
+            {% if user.profile_photo %}
+                <img class="avatar" src="{{ user.photo_profile.url }}">
+            {% else %}
+                <img class="avatar" src="{% static 'assets/default_profile.png'%}">
+            {% endif %}
             <p><a href="{% url 'accueil' %}">Accueil</a></p>
             <p><a href="{% url 'photo_upload' %}">Téléverser une photo</a></p>
-            <p><a href="">Changer la photo de profil</a></p>
+            <p><a href="{% url 'pp_update' %}">Changer la photo de profil</a></p>
             <p><a href="{% url 'password_change' %}">Changer le mot de passe</a></p>
             <p><a href="{% url 'about_us' %}">About us</a></p>
             <p><a href="{% url 'contact_us' %}">Contact us</a></p>
             <p><a href="{% url 'logout' %}">Se déconnecter</a></p>
+        {% else %}
+            <p><a href="{% url 'register' %}">Register</a></p>
+            <p><a href="{% url 'login' %}">Login</a></p>
         {% endif %}
     </aside>
     <main class="main">

@@ -1,13 +1,17 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from blog.forms import PhotoForm, BlogForm
-from blog.models import Photo
+from blog.models import Photo, Blog
 
 # Create your views here.
 @login_required
 def accueil(request):
+    blogs = Blog.objects.all()
     photos = Photo.objects.all()
-    context = {"photos" : photos}
+    context = {
+        "photos" : photos,
+        "blogs" : blogs
+    }
     return render(request, 'blog/accueil.html', context)
 
 @login_required
@@ -46,6 +50,12 @@ def blog_creation(request):
         "photo_form" : photo_form
     }
     return render(request, "blog/blog_creation.html", context)
+
+@login_required
+def view_blog(request, blog_id):
+    blog = get_object_or_404(Blog, id=blog_id)
+    context = {"blog" : blog}
+    return render(request, "blog/blog_reading.html", context)
 
 def contact_us(request):
     return render(request, 'blog/contact_us.html')

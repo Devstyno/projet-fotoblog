@@ -88,12 +88,11 @@ DATABASES = {
 AUTH_USER_MODEL = 'authentication.User'
 
 # Redirect not authenticated User to
-LOGOUT_REDIRECT_URL = "login"
 LOGIN_URL = "login"
+LOGOUT_REDIRECT_URL = LOGIN_URL
 
 # Redirect authenticated User to
 LOGIN_REDIRECT_URL = "accueil"
-LOGOUT_URL = "logout"
 
 
 # Password validation

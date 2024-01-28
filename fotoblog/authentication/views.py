@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, login, logout
 from authentication.forms import LoginForm, RegisteringForm
 from django.views.generic import View
 from django.conf import settings
-from authentication.models import User
 
 # Create your views here.
 class RegisteringPageView(View):
@@ -17,11 +16,6 @@ class RegisteringPageView(View):
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
-            # User.objects.create_user(
-            #     username = form.cleaned_data["username"],
-            #     password = form.cleaned_data["password"],
-            #     role = form.cleaned_data["role"]
-            # )
             user = form.save()
             # auto login user
             login(request, user)
@@ -33,11 +27,6 @@ def registering_page(request):
     if request.method == "POST":
         form = RegisteringForm(request.POST)
         if form.is_valid():
-            # User.objects.create_user(
-            #     username = form.cleaned_data["username"],
-            #     password = form.cleaned_data["password"],
-            #     role = form.cleaned_data["role"]
-            # )
             user = form.save()
             login(request, user)
             return redirect(settings.LOGIN_REDIRECT_URL)

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Ecrire un billet</h2>
+    <!-- Notez l’ajout de l’attribut  enctype="multipart/form-data"   à la balise  <form>.
+        C’est obligatoire pour que le formulaire puisse gérer l’envoi de fichiers. -->
+    <form method="post" enctype="multipart/form-data">
+        {{ blog_form.as_p }}
+        {{ photo_form.as_p }}
+        {% csrf_token %}
+        <button type="submit" >Publier</button>
+    </form>
+{% endblock content %}

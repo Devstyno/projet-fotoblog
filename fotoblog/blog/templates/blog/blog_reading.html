@@ -2,7 +2,8 @@
 {% block content %}
     <div>
         <h2>{{ blog.title }}</h2>
-        <img src="{{ blog.photo.image.url }}">
+        <p><a href="{% url 'edit_blog' blog.id %}">Modifier le billet</a></p>
+        <img style="height: 500px; width: 500px;" src="{{ blog.photo.image.url }}">
         <p>{{ blog.photo.caption }}</p>
         <p>{{ blog.content }}</p>
     </div>

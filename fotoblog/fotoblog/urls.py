@@ -56,6 +56,7 @@ urlpatterns = [
     path("photo/upload/", bv.photo_upload, name="photo_upload"),
     path("blog/creation/", bv.blog_creation, name="blog_creation"),
     path("blog/read/<int:blog_id>/", bv.view_blog, name="view_blog"),
+    path('blog/edit/<int:blog_id>/', bv.edit_blog, name='edit_blog'),
     path('about-us/', bv.about_us, name="about_us"),
     path('contact-us/', bv.contact_us, name="contact_us"),
 ]

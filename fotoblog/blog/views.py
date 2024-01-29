@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from blog.forms import PhotoForm, BlogForm
+from blog.forms import PhotoForm, BlogForm, DeleteBlogForm
 from blog.models import Photo, Blog
 
 # Create your views here.
@@ -56,6 +56,28 @@ def view_blog(request, blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
     context = {"blog" : blog}
     return render(request, "blog/blog_reading.html", context)
+
+@login_required
+def edit_blog(request, blog_id):
+    blog = get_object_or_404(Blog, id=blog_id)
+    edit_form = BlogForm(instance=blog)
+    delete_form = DeleteBlogForm()
+    if request.method == 'POST':
+        if "edit_blog" in request.POST:
+            edit_form = BlogForm(request.POST, instance=blog)
+            if edit_form.is_valid():
+                edit_form.save()
+                return redirect("accueil")
+        elif "delete_blog" in request.POST:
+            delete_form = DeleteBlogForm(request.POST)
+            if delete_form.is_valid():
+                blog.delete()
+                return redirect("accueil")
+    context = {
+        'edit_form': edit_form,
+        'delete_form': delete_form,
+    }
+    return render(request, 'blog/edit_blog.html', context)
 
 def contact_us(request):
     return render(request, 'blog/contact_us.html')

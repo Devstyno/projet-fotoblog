@@ -54,6 +54,7 @@ urlpatterns = [
     path("profile_photo/change/", av.change_profile_photo, name="pp_update"),
     path('accueil/', bv.accueil, name="accueil"),
     path("photo/upload/", bv.photo_upload, name="photo_upload"),
+    path('photo/upload-multiple/', bv.create_multiple_photos, name='create_multiple_photos'),
     path("blog/creation/", bv.blog_creation, name="blog_creation"),
     path("blog/read/<int:blog_id>/", bv.view_blog, name="view_blog"),
     path('blog/edit/<int:blog_id>/', bv.edit_blog, name='edit_blog'),

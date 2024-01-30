@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import formset_factory
 from blog.forms import PhotoForm, BlogForm, DeleteBlogForm
 from blog.models import Photo, Blog
@@ -16,6 +16,7 @@ def accueil(request):
     return render(request, 'blog/accueil.html', context)
 
 @login_required
+@permission_required('blog.add_photo', raise_exception=True)
 def photo_upload(request):
     form = PhotoForm()
     if request.method == "POST":

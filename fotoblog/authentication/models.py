@@ -15,4 +15,4 @@ class User(AbstractUser):
     role = models.CharField(max_length=30, choices=ROLE_CHOICES, verbose_name='Rôle')
 
     def save(self, *args, **kwargs):
-        super().save(self, *args, **kwargs)
+        super().save(*args, **kwargs)

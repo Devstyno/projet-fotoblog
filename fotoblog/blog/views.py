@@ -49,8 +49,7 @@ def create_multiple_photos(request):
     return render(request, "blog/create_multiple_photos.html", context)
 
 @login_required
-@permission_required('blog.add_photo', raise_exception=True)
-@permission_required('blog.add_blog', raise_exception=True)
+@permission_required(['blog.add_photo', 'blog.add_blog'], raise_exception=True)
 def blog_creation(request):
     blog_form = BlogForm()
     photo_form = PhotoForm()
@@ -79,7 +78,7 @@ def view_blog(request, blog_id):
     return render(request, "blog/blog_reading.html", context)
 
 @login_required
-@permission_required('blog.add_blog', raise_exception=True)
+@permission_required('blog.change_blog', raise_exception=True)
 def edit_blog(request, blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
     edit_form = BlogForm(instance=blog)

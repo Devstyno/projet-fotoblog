@@ -37,5 +37,5 @@ class Blog(models.Model):
         return len(mots)
     
     def save(self, *args, **kwargs):
-        super().save(self, *args, **kwargs)
+        super().save(*args, **kwargs)
         self.word_count = self._get_word_count()

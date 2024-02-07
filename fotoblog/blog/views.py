@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import formset_factory
-from blog.forms import PhotoForm, BlogForm, DeleteBlogForm
+from blog.forms import PhotoForm, BlogForm, DeleteBlogForm, FollowUsersForm
 from blog.models import Photo, Blog
 
 # Create your views here.
@@ -105,3 +105,17 @@ def contact_us(request):
 
 def about_us(request):
     return render(request, 'blog/a_propos.html')
+
+@login_required
+def follow_users(request):
+    form = FollowUsersForm(instance=request.user)
+    if request.method == "POST":
+        form = FollowUsersForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("accueil")
+
+    path = "blog/follow_users_form.html"
+    context = {"form" : form}
+
+    return render(request, path, context)

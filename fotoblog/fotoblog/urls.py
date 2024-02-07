@@ -60,6 +60,7 @@ urlpatterns = [
     path('blog/edit/<int:blog_id>/', bv.edit_blog, name='edit_blog'),
     path('about-us/', bv.about_us, name="about_us"),
     path('contact-us/', bv.contact_us, name="contact_us"),
+    path('follow-users/', bv.follow_users, name='follow_users'),
 ]
 
 if settings.DEBUG:

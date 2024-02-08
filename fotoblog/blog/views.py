@@ -1,19 +1,46 @@
+from itertools import chain
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import formset_factory
+from django.db.models import Q
 from blog.forms import PhotoForm, BlogForm, DeleteBlogForm, FollowUsersForm
 from blog.models import Photo, Blog
 
 # Create your views here.
 @login_required
 def accueil(request):
-    blogs = Blog.objects.all()
-    photos = Photo.objects.all()
+    blogs = Blog.objects.filter(
+        Q(contributors__in=request.user.follows.all()) | Q(starred=True)
+    )
+    photos = Photo.objects.filter(
+        uploader__in=request.user.follows.all()
+    ).exclude(
+        blog__in=blogs
+    )
+
+    blogs_and_photos = sorted(
+        chain(blogs, photos),
+        key=lambda instance: instance.date_created,
+        reverse=True
+    )
+
     context = {
-        "photos" : photos,
-        "blogs" : blogs
+        "blogs_and_photos" : blogs_and_photos
     }
+    
     return render(request, 'blog/accueil.html', context)
+
+@login_required
+def photo_feed(request):
+    photos = Photo.objects.all().filter(
+        Q(uploader__in=request.user.follows.all())
+    )
+    photos = photos.order_by("-date_created") # le - permet de renverser l'ordre par defaut de la sequence
+
+    path = "blog/photo_feed.html"
+    context = {"photos" : photos}
+    
+    return render(request, path, context)
 
 @login_required
 @permission_required('blog.add_photo', raise_exception=True)

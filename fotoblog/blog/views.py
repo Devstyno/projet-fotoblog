@@ -1,4 +1,5 @@
 from itertools import chain
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import formset_factory
@@ -24,11 +25,17 @@ def accueil(request):
         reverse=True
     )
 
+    paginator = Paginator(blogs_and_photos, 6)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    path = "blog/accueil.html"
     context = {
-        "blogs_and_photos" : blogs_and_photos
+        "page_obj" : page_obj
     }
     
-    return render(request, 'blog/accueil.html', context)
+    return render(request, path, context)
 
 @login_required
 def photo_feed(request):
@@ -37,8 +44,14 @@ def photo_feed(request):
     )
     photos = photos.order_by("-date_created") # le - permet de renverser l'ordre par defaut de la sequence
 
+    paginator = Paginator(photos, 5)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+
     path = "blog/photo_feed.html"
-    context = {"photos" : photos}
+    context = {"page_obj" : page_obj}
     
     return render(request, path, context)
 

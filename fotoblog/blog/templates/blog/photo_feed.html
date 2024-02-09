@@ -2,10 +2,12 @@
 {% block content %}
     <div>
         <h2>Photos</h2>
+        {% include 'blog/partials/page_navigator.html' %}
         <div class="grid-container">
-            {% for photo in photos %}
+            {% for photo in page_obj %}
                 {% include 'blog/partials/photo_snippet.html' %}
             {% endfor %}
         </div>
+        {% include 'blog/partials/page_navigator.html' %}
     </div>
 {% endblock content %}
